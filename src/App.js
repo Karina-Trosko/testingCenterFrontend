@@ -25,32 +25,34 @@
 import React, {Component, useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
+import { Header } from './modules/header';
+import { testApi } from './services/api';
+// import { store } from './index';
+import { changecatalogContent } from './actions/catalogContent';
+import actions from './actions';
+
+import './actions'
+import MainCatalog from './modules/catalog/catalog';
 
 function App () {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        fetch('/api/hello')
-            .then(response => response.text())
-            .then(message => {
-                setMessage(message);
-                axios.get('/api/users/1').then(r => {console.log(r); console.log('data: ', r.data);})
-            });
-            axios.post('/api/test/update', {
-                description: ''
-              }).then(r => {console.log(r)})
-
+        // fetch('/api/hello')
+        //     .then(response => response.text())
+        //     .then(message => {
+        //         setMessage(message);
+        //         axios.get('/api/users/1').then(r => {console.log(r); console.log('data: ', r.data);})
+        //     });
+        //     axios.post('/api/test/update', {
+        //         description: ''
+        //       }).then(r => {console.log(r)}
+testApi.getTests((r)=>{actions.changecatalogContent(r); console.log('hh: ',r);}, (r)=>{ return r.data[0]});
     },[])
     return (
         <div className="App">
-            <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <h1 className="App-title">{message}</h1>
-            </header>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
+            <Header/>
+            <MainCatalog />
         </div>
     )
 }

@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
 
+// The only way to mutate the internal state is to dispatch an action.
+// The actions can be serialized, logged or stored and later replayed.
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
