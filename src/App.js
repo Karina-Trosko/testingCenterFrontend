@@ -33,6 +33,7 @@ import actions from './actions';
 
 import './actions'
 import MainCatalog from './modules/catalog/catalog';
+import { Separator } from './components';
 
 function App () {
     const [message, setMessage] = useState("");
@@ -52,6 +53,7 @@ testApi.getTests((r)=>{actions.changecatalogContent(r); console.log('hh: ',r);},
     return (
         <div className="App">
             <Header/>
+            <Separator />
             <MainCatalog />
         </div>
     )

@@ -1,0 +1,22 @@
+.catalog-item {
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+.catalog-separator {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: lightgray;
+    height: 1px;
+}
+
+.catalog-buttons-group {
+    display: flex;
+    margin: 7px 0px 0px;
+}

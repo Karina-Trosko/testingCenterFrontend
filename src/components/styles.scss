@@ -1,0 +1,26 @@
+.title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.subtitle {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.button-rounded {    
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: limegreen;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+}
+
+.separator {
+    width: 100%;
+    background-color: lightgray;
+    height: 1px;
+}
