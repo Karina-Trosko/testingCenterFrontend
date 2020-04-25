@@ -54,7 +54,7 @@ testApi.getTests((r)=>{actions.changecatalogContent(r);}, (r)=>{ return r.data[0
         <div className="App">
             <Header/>
             <Separator />
-            <MainCatalog />
+            {/* <MainCatalog /> */}
         </div>
     )
 }

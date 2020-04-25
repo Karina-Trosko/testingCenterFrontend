@@ -6,22 +6,31 @@ import './header.scss';
 export function Header() {
     return (
         <div className="header">
-            <div 
+            <button 
             className="header-item" 
             onClick={()=>{
+                console.log('Log');
                 testApi.getTests((r)=>{
                     actions.changecatalogContent(r); 
-                }, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'test'}))});
+                }, (r)=>{console.log('i: ', r); return r.data[0].map(el => ({ ...el, itemType: 'test'}))});
             }}>Tests
-            </div>
-            <div 
+            </button>
+            <button 
             className="header-item"
             onClick={()=>{
                 userApi.getUsers((r)=>{
                     actions.changecatalogContent(r); 
                 }, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'user'}))});
             }}>Users
-            </div>
+            </button>
+            <button 
+            className="header-item"
+            onClick={()=>{
+                testApi.getUsers((r)=>{
+                    actions.changecatalogContent(r); 
+                }, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'user'}))});
+            }}>Add test
+            </button>
         </div>
     );
 }
