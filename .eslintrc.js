@@ -1,16 +1,27 @@
 module.exports = {
-  'extends': [
-    'react-app',
-    'airbnb',
-    'plugin:jsx-a11y/recommended',
-    'prettier',
-    'prettier/react'
+  env: {
+    browser: true,
+    commonjs: true,
+    es6: true
+  },
+  extends: [
+    'plugin:react/recommended',
+    'standard'
   ],
-  'plugins': [
-    'jsx-a11y',
-    'prettier'
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 2018
+  },
+  plugins: [
+    'react'
   ],
-  'rules': {
+  rules: {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'semi': ['error', 'always'],
     'eol-last': ['error', 'always'],
@@ -24,12 +35,5 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'import/order': 0
-  },
-  'settings': {
-    'import/resolver': {
-      'node': {
-        'paths': ['src']
-      }
-    }
   }
-};
+}
