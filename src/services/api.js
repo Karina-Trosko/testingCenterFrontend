@@ -1,4 +1,5 @@
 import axios from 'axios';
+import actions from '../actions';
 
 export const testApi = {
     getTests: (handler, resultMaker=(r)=>{return r.data}) => {
@@ -6,6 +7,15 @@ export const testApi = {
         .then(res => {
             handler(resultMaker(res));
         })
+    }, 
+    deleteTest: (id) => {
+        axios.post(`/api/test/delete/${id}`).then(r => {
+            console.log(r);
+            axios.get('/api/tests')
+            .then(res => {
+                actions.changecatalogContent(res.data[0].map(el => ({ ...el, itemType: 'test'})));
+            })
+        });
     }
 };
 

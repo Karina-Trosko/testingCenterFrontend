@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import './catalog.scss';
 import { getContent } from '../../selectors/tests';
 import { Title, Subtitle, Button, HorizontalSeparator, VerticalSeparator } from '../../components';
+import { testApi } from '../../services/api';
 
 function getCatalogItemRender(item = {}) {
     switch (item.itemType) {
         case 'test':
-            return (<CatalogTestItem item={item} />);
+            return (<CatalogTestItem item={item} key={item.id} />);
         case 'user':
-            return (<CatalogUserItem item={item} />);
+            return (<CatalogUserItem item={item} key={item.id} />);
         default: return (<div></div>);
     }
 };
@@ -17,7 +18,7 @@ function getCatalogItemRender(item = {}) {
 function CatalogTestItem({ item = {} }) {
     return (
         <>
-            <div className="catalog-item" key={item.id}>
+            <div className="catalog-item">
                 <div className="catalog-item-content">
                     <Title text={item.name} />
                     <Subtitle text={item.description} />
@@ -31,7 +32,14 @@ function CatalogTestItem({ item = {} }) {
                     <div className="catalog-item-menu">
                         <Button text="Pass" />
                         <Button text="Edit" />
-                        <Button text="Delete" />
+                        <Button text="Delete" onClick={
+                            () => {
+                                const answ = window.confirm("Are you shure you want to delete it?");
+                                if (answ) {
+                                    testApi.deleteTest(item.id);
+                                }
+                            }}
+                        />
                     </div>
                 </div>
             </div>
