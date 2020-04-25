@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import './catalog.scss';
 import { getContent } from '../../selectors/tests';
 import { Title, Subtitle, Button, HorizontalSeparator, VerticalSeparator } from '../../components';
-import { testApi } from '../../services/api';
+import { testApi, userApi } from '../../services/api';
 
 function getCatalogItemRender(item = {}) {
     switch (item.itemType) {
@@ -60,7 +60,14 @@ function CatalogUserItem({ item = {} }) {
                 <div style={{ display: 'flex', marginLeft: 'auto' }}>
                     <div className="catalog-item-menu">
                         <Button text="Edit" />
-                        <Button text="Delete" />
+                        <Button text="Delete" onClick={
+                            () => {
+                                const answ = window.confirm("Are you shure you want to delete it?");
+                                if (answ) {
+                                    userApi.deleteUser(item.id);
+                                }
+                            }}
+                        />
                     </div>
                 </div>
             </div>

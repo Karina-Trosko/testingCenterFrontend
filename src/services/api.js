@@ -25,5 +25,14 @@ export const userApi = {
         .then(res => {
             handler(resultMaker(res));
         })
+    },
+    deleteUser: (id) => {
+        axios.post(`/api/user/delete/${id}`).then(r => {
+            console.log(r);
+            axios.get('/api/users')
+            .then(res => {
+                actions.changecatalogContent(res.data[0].map(el => ({ ...el, itemType: 'user'})));
+            })
+        });
     }
 };
