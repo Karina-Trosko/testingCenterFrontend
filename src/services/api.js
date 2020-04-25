@@ -1,9 +1,19 @@
 import axios from 'axios';
+
 export const testApi = {
-    getTests: (hendler, resultMaker=(r)=>{return r.data}) => {
+    getTests: (handler, resultMaker=(r)=>{return r.data}) => {
         axios.get('/api/tests')
         .then(res => {
-            hendler(resultMaker(res));
+            handler(resultMaker(res));
+        })
+    }
+};
+
+export const userApi = {
+    getUsers: (handler, resultMaker=(r)=>{return r.data}) => {
+        axios.get('/api/users')
+        .then(res => {
+            handler(resultMaker(res));
         })
     }
 };

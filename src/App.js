@@ -48,7 +48,7 @@ function App () {
         //     axios.post('/api/test/update', {
         //         description: ''
         //       }).then(r => {console.log(r)}
-testApi.getTests((r)=>{actions.changecatalogContent(r); console.log('hh: ',r);}, (r)=>{ return r.data[0]});
+testApi.getTests((r)=>{actions.changecatalogContent(r);}, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'test'}))});
     },[])
     return (
         <div className="App">
