@@ -5,7 +5,8 @@ import { store } from './store';
 import './index.css';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
-
+// import { writeInFile } from './services/utils';
+// writeInFile();
 // The only way to mutate the internal state is to dispatch an action.
 // The actions can be serialized, logged or stored and later replayed.
 ReactDOM.render(

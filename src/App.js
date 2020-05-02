@@ -34,6 +34,7 @@ import actions from './actions';
 import './actions'
 import MainCatalog from './modules/catalog/catalog';
 import { Separator } from './components';
+import { AddTest } from './modules/addTest';
 
 function App () {
     const [message, setMessage] = useState("");
@@ -49,12 +50,14 @@ function App () {
         //         description: ''
         //       }).then(r => {console.log(r)}
 testApi.getTests((r)=>{actions.changecatalogContent(r);}, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'test'}))});
+//testApi.addTest();
     },[])
     return (
         <div className="App">
             <Header/>
             <Separator />
             {/* <MainCatalog /> */}
+            <AddTest />
         </div>
     )
 }

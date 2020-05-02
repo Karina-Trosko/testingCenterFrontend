@@ -3,7 +3,8 @@ import './styles.scss';
 
 const styles = {
     rounded: 'button-rounded',
-    primary: 'button-primary'
+    primary: 'button-primary',
+    circle: 'button-circle'
 };
 
 export const Button = ({ text, styleName='primary', additionalStyle={}, bc, onClick = () => {}}) => (
