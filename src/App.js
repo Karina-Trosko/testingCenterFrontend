@@ -32,17 +32,20 @@ import './actions'
 import MainCatalog from './modules/catalog/catalog';
 import { Separator } from './components';
 import { AddTest } from './modules/addTest';
+import { SignIn, SignUp } from './modules/signIn';
+import { Authorization } from './modules/signIn/authorization';
 
 function App () {
     const [route, setRoute] = useState("tests");
 const setRouteHandler = (v) => { setRoute(v);};
     useEffect(() => {
         testApi.getTests((r) => { actions.changecatalogContent(r); }, (r) => { return r.data[0].map(el => ({ ...el, itemType: 'test' })) });
+        testApi.getContent();
     }, [])
     const routs = { 
         tests: (<MainCatalog />),
         addTest: (<AddTest />),
-        signin: (<></>),
+        authorization: (<Authorization />),
      };
     return (
         <div className="App">

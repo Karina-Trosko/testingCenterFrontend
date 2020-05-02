@@ -38,6 +38,13 @@ export const testApi = {
                 handler(resultMaker(res));
             })
     },
+    getContent: (handler = () => { }, resultMaker = (r) => { return r.data }) => {
+        axios.get('/api/tests/content')
+            .then(res => {
+                handler(resultMaker(res));
+                console.log('content: ', res);
+            })
+    },
 };
 
 export const userApi = {
@@ -55,5 +62,19 @@ export const userApi = {
                     actions.changecatalogContent(res.data[0].map(el => ({ ...el, itemType: 'user' })));
                 })
         });
-    }
+    },
+    signUp: (data) => {
+        axios.post('/api/users/signUp', { ...data }).then(r => {
+            console.log(r);
+            if (r.data.login) { actions.setupAuthUser({ ...r.data }); }
+            else {window.alert(r.data)}
+        });
+    },
+    signIn: (data) => {
+        axios.post('/api/users/signIn', { ...data }).then(r => {
+            console.log(r);
+            if (r.data.login) { actions.setupAuthUser({ ...r.data }); }
+            else {window.alert(r.data)}
+        });
+    },
 };

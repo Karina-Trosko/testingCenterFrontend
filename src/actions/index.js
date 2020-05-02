@@ -1,4 +1,5 @@
 import * as catalogContent from './catalogContent';
+import * as userInfo from './user';
 import { store } from '../store';
 
 const connectActions = (actions) => {
@@ -11,5 +12,5 @@ return result;
 };
 
 export default {
-    ...connectActions({ ...catalogContent })
+    ...connectActions({ ...catalogContent, ...userInfo })
 };

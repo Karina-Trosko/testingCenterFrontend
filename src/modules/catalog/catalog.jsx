@@ -4,18 +4,19 @@ import './catalog.scss';
 import { getContent } from '../../selectors/tests';
 import { Title, Subtitle, Button, HorizontalSeparator, VerticalSeparator } from '../../components';
 import { testApi, userApi } from '../../services/api';
+import { getisAuth, getisAdmin } from '../../selectors/user';
 
-function getCatalogItemRender(item = {}) {
+function getCatalogItemRender(item = {}, isAdmin= false, isAuth=false) {
     switch (item.itemType) {
         case 'test':
-            return (<CatalogTestItem item={item} key={item.id} />);
+            return (<CatalogTestItem item={item} key={item.id} isAdmin={isAdmin} isAuth={isAuth}/>);
         case 'user':
             return (<CatalogUserItem item={item} key={item.id} />);
         default: return (<div></div>);
     }
 };
 
-function CatalogTestItem({ item = {} }) {
+function CatalogTestItem({ item = {}, isAdmin, isAuth }) {
     return (
         <>
             <div className="catalog-item">
@@ -30,16 +31,16 @@ function CatalogTestItem({ item = {} }) {
                 </div>
                 <div style={{ display: 'flex', marginLeft: 'auto' }}>
                     <div className="catalog-item-menu">
-                        <Button text="Pass" />
-                        <Button text="Edit" />
-                        <Button text="Delete" onClick={
+                        {isAuth ? <Button text="Pass" />: null}
+                        {/* {isAdmin ? <Button text="Edit" /> : null} */}
+                        {isAdmin ? <Button text="Delete" onClick={
                             () => {
                                 const answ = window.confirm("Are you shure you want to delete it?");
                                 if (answ) {
                                     testApi.deleteTest(item.id);
                                 }
                             }}
-                        />
+                        /> : null}
                     </div>
                 </div>
             </div>
@@ -59,7 +60,7 @@ function CatalogUserItem({ item = {} }) {
                 </div>
                 <div style={{ display: 'flex', marginLeft: 'auto' }}>
                     <div className="catalog-item-menu">
-                        <Button text="Edit" />
+                        {/* <Button text="Edit" /> */}
                         <Button text="Delete" onClick={
                             () => {
                                 const answ = window.confirm("Are you shure you want to delete it?");
@@ -78,17 +79,21 @@ function CatalogUserItem({ item = {} }) {
 
 const makeMapStateToProps = () => {
     const content = getContent();
+    const isAdmin = getisAdmin();
+    const isAuth = getisAuth();
     const mapStateToProps = (state) => {
         return {
-            data: content(state)
+            data: content(state),
+            isAdmin: isAdmin(state),
+            isAuth: isAuth(state),
         };
     };
     return mapStateToProps;
 };
 
-const Catalog = ({ data = [] }) => {
+const Catalog = ({ data = [], isAdmin=false, isAuth=false }) => {
     return (
-        data.map(el => (getCatalogItemRender(el)))
+        data.map(el => (getCatalogItemRender(el, isAdmin,isAuth)))
     );
 }
 const MainCatalog = connect(makeMapStateToProps)(
