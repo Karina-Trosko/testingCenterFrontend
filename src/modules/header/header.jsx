@@ -2,8 +2,9 @@ import React from 'react';
 import actions from '../../actions';
 import { testApi, userApi } from '../../services/api';
 import './header.scss';
+import { Button } from '../../components';
 
-export function Header() {
+export function Header({clickHandler}) {
     return (
         <div className="header">
             <button 
@@ -13,6 +14,7 @@ export function Header() {
                 testApi.getTests((r)=>{
                     actions.changecatalogContent(r); 
                 }, (r)=>{console.log('i: ', r); return r.data[0].map(el => ({ ...el, itemType: 'test'}))});
+                clickHandler('tests');
             }}>Tests
             </button>
             <button 
@@ -21,15 +23,20 @@ export function Header() {
                 userApi.getUsers((r)=>{
                     actions.changecatalogContent(r); 
                 }, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'user'}))});
+                clickHandler('tests');
             }}>Users
             </button>
             <button 
             className="header-item"
             onClick={()=>{
-                testApi.getUsers((r)=>{
-                    actions.changecatalogContent(r); 
-                }, (r)=>{ return r.data[0].map(el => ({ ...el, itemType: 'user'}))});
+                clickHandler('addTest');
             }}>Add test
+            </button>
+            <button 
+            className="header-item"
+            onClick={()=>{
+                clickHandler('signin');
+            }}>SignIn
             </button>
         </div>
     );
